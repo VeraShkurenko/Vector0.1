@@ -113,7 +113,7 @@ Vector Vector::operator+(Vector& obj)
 	obj.InputRand();
 
 	Vector rez(size + obj.size);
-
+	
 	for (int i = 0; i < size; i++)
 	{
 		rez.arr[i] = this->arr[i];
