@@ -91,15 +91,13 @@ Vector Vector::operator- (int a)
 
 Vector Vector::operator+(int a)
 {
-	Vector rez(size + a); // 5 + 5 = 10  1 2 3 4 5 0 0 0 0 0
-
-
+	Vector rez(size + a);
 	for (int i = 0; i < size; i++)
 	{
-		rez.arr[i] = this->arr[i];
+		rez.arr[i] = this->arr[i]; 
 	}
 
-	for (int i = 0; i < rez.size; i++)
+	for (int i = size; i < rez.size; i++)
 	{
 		rez.arr[i] = 0;
 	}
@@ -107,20 +105,33 @@ Vector Vector::operator+(int a)
 	return rez;
 }
 
-Vector Vector::operator+(Vector& obj)
-{
-	//Vector obj(int s);
-	obj.InputRand();
 
-	Vector rez(size + obj.size);
-	
-	for (int i = 0; i < size; i++)
+Vector Vector::operator+(Vector b)
+{
+	Vector rez(this->size + b.size);
+
+	for (int i = 0; i < this->size; i++)
 	{
 		rez.arr[i] = this->arr[i];
+	}
+
+	for (int i = 0; i < b.size; i++)
+	{
+		rez.arr[this->size + i] = b.arr[i];
 	}
 
 	return rez;
 }
 
 
+
+
+Vector Vector::operator*(int a) {
+	Vector rez(size); 
+	for (int i = 0; i < size; i++)
+	{
+		rez.arr[i] = this->arr[i] * a; 
+	}
+	return rez;
+}
 

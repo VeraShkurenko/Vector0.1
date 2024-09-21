@@ -19,7 +19,7 @@ public:
 	/// перегрузки операции
 	Vector operator-(int a);
 	Vector operator+(int a);
-	Vector operator+(Vector &obj);
-
+	Vector operator+(Vector b);
+	Vector operator*(int a);
 
 };
