@@ -33,27 +33,40 @@ int main()
 	}
 
 
-
     ++obj1;
 	obj1.Print();
 
+	--obj1;
+	obj1.Print();
 
-	Vector obj2(5); //-------------  1 2 3 4 5
-	obj2.InputRand();
+
+	Vector obj2 = ++obj1;
+	obj1.Print();
 	obj2.Print();
 
+	--obj1;
+	obj1.Print();
 
-	Vector obj3 = ++obj1;
 
+	Vector obj3 = obj1++;
 	obj3.Print();
+	obj1.Print();
 
-	Vector obj4 = obj1++;
+
+
+	Vector obj4(3);
+	obj4.InputRand();
 	obj4.Print();
 
-
-		//obj6.Print();
-
-
+	obj4 += 5;
+	obj4.Print();
+	obj4 -= 5;
+	obj4.Print();
+	obj4 *= 5;
+	obj4.Print();
+	obj4 /= 5;
+	obj4.Print();
+	
 
 }
 

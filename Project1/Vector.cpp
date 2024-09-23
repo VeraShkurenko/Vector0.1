@@ -15,14 +15,14 @@ Vector::Vector(int s)
 }
 Vector::~Vector()
 {
-	cout << "Destructor\n";
+	//cout << "Destructor\n";
 	delete[]arr;
 	size = 0;
 	
 }
 Vector::Vector(const Vector& obj)
 {
-	cout << "Copy constructor\n";
+	//cout << "Copy constructor\n";
 	this->size = obj.size;
 	this->arr = new int[size];
 	for (int i = 0; i < size; i++)
@@ -134,7 +134,7 @@ Vector Vector::operator*(int a) {
 }
 
 
-Vector Vector::operator++()
+Vector& Vector::operator++()
 {
 	int* temp = new int[size + 1];
 	temp[0] = 0;
@@ -152,58 +152,126 @@ Vector Vector::operator++()
 	return *this;
 }
 
-Vector Vector::operator++(int)
+Vector Vector::operator--(int)
 {
 	Vector temp = *this;
-	++(*this);
+
+	if (size > 0)
+	{
+		int* newArr = new int[size - 1];
+
+		for (int i = 0; i < size - 1; i++)
+		{
+			newArr[i] = arr[i + 1];
+		}
+
+		delete[] arr;
+		arr = newArr;
+		size--;
+	}
 
 	return temp;
 }
 
-Vector Vector::operator--()
-{
-	int* temp = new int[size - 1];
-	temp[0] = 0;
 
-	for (int i = 0; i < size; i++)
+Vector& Vector::operator--()
+{
+	if (size == 0) return *this; 
+
+	int* temp = new int[size - 1]; 
+
+	for (int i = 0; i < size - 1; i++)
 	{
-		temp[i - 1] = arr[i];
+		temp[i] = arr[i + 1]; 
 	}
 
 	delete[] arr;
-
 	arr = temp;
 	size--;
 
 	return *this;
-
 }
 
-Vector Vector::operator--(int)
+
+Vector Vector::operator++(int)
 {
 	Vector temp = *this;
-	--(*this);
 
-	return temp;;
+	int* newArr = new int[size + 1];
+	newArr[0] = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		newArr[i + 1] = arr[i];
+	}
+
+	delete[] arr;
+	arr = newArr;
+	size++;
+
+	return temp;
 }
 
-//Vector& Vector::operator+=(int)
-//{
-//	
-//}
-//
-//Vector& Vector::operator-=(int)
-//{
-//	
-//}
-//
-//Vector& Vector::operator*=(int)
-//{
-//	
-//}
-//
-//Vector& Vector::operator/=(int)
-//{
-//	
-//}
+
+
+Vector& Vector::operator+=(int a)
+{
+	int* temp = new int[size + a];
+
+	for (int i = 0; i < size; i++)
+	{
+		temp[i] = arr[i];
+	}
+
+	for (int i = size; i < size + a; i++)
+	{
+		temp[i] = 0;
+	}
+
+	delete[] arr;
+	arr = temp;
+	size += a;
+
+	return *this;
+}
+
+Vector& Vector::operator-=(int a)
+{
+	if (size >= a)
+	{
+		int* temp = new int[size - a];
+
+		for (int i = 0; i < size - a; i++)
+		{
+			temp[i] = arr[i];
+		}
+
+		delete[] arr;
+		arr = temp;
+		size -= a;
+	}
+
+	return *this;
+}
+
+Vector& Vector::operator*=(int a)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] *= a;
+	}
+	return *this;
+}
+
+Vector& Vector::operator/=(int a)
+{
+	if (a == 0) return *this;
+
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] /= a;
+	}
+	return *this;
+}
+
 
