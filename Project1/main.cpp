@@ -2,6 +2,105 @@
 #include"Vector.h"
 using namespace std;
 
+
+Vector operator +=(Vector& obj, int a)
+{
+	int newSize = obj.GetSize() + a;
+	int* newArr = new int[newSize];
+
+	for (int i = 0; i < obj.GetSize(); i++)
+	{
+		newArr[i] = obj.GetArr()[i];
+	}
+
+	for (int i = obj.GetSize(); i < newSize; i++)
+	{
+		newArr[i] = 0;
+	}
+
+	obj.SetArr(newArr);
+	obj.SetSize(newSize);
+	delete[] newArr;
+
+	return obj;
+}
+
+Vector operator -=(Vector& obj, int a)
+{
+	if (obj.GetSize() >= a)
+	{
+		int newSize = obj.GetSize() - a;
+		int* newArr = new int[newSize];
+
+		for (int i = 0; i < newSize; i++)
+		{
+			newArr[i] = obj.GetArr()[i];
+		}
+
+		obj.SetArr(newArr);
+		obj.SetSize(newSize);
+		delete[] newArr;
+	}
+
+	return obj;
+}
+
+Vector operator *=(Vector& obj, int a)
+{
+	for (int i = 0; i < obj.GetSize(); i++)
+	{
+		obj.GetArr()[i] = a;
+	}
+
+	return obj;
+}
+
+
+
+Vector operator -(Vector& obj, int a)
+{
+	if (a >= obj.GetSize())
+	{
+		return Vector(0);  
+	}
+
+	int newSize = obj.GetSize() - a;
+	int* newArr = new int[newSize];
+
+	for (int i = 0; i < newSize; i++)
+	{
+		newArr[i] = obj.GetArr()[i + a];
+	}
+
+	Vector newVector(newSize);
+	newVector.SetArr(newArr);
+	delete[] newArr;
+
+	return newVector;
+}
+
+
+ostream& operator<<(ostream& os, Vector& obj)
+{
+	for (int i = 0; i < obj.GetSize(); i++)
+	{
+		os << obj.GetArr()[i] << " ";
+	}
+	return os;
+
+}
+
+istream& operator>>(istream& is, Vector& obj)
+{
+	for (int i = 0; i < obj.GetSize(); i++)
+	{
+		is >> obj.GetArr()[i];
+	}
+	return is;
+
+}
+
+
 int main()
 {
 	srand(time(0));
@@ -64,8 +163,10 @@ int main()
 	obj4.Print();
 	obj4 *= 5;
 	obj4.Print();
-	obj4 /= 5;
-	obj4.Print();
+
+
+	cout << obj4;
+
 	
 
 }

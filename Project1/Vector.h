@@ -3,6 +3,8 @@ class Vector
 {
 	int* arr;
 	int size;
+	friend ostream& operator<< (ostream& os, Vector& obj);
+	friend istream& operator>> (istream& is, Vector& obj);
 public:
 	Vector();
 	~Vector();
@@ -16,8 +18,16 @@ public:
 	int PopBack();
 
 
+	int* GetArr();
+	int GetSize();
+
+	void SetSize(int s);
+	void SetArr(int* array);
+
+
+
 	/// перегрузки операции
-	Vector operator-(int a);
+	//Vector operator-(int a);
 	Vector operator+(int a);
 	Vector operator+(Vector b);
 	Vector operator*(int a);
@@ -28,10 +38,10 @@ public:
 	Vector& operator--();
 	Vector operator--(int);
 
-	Vector& operator+=(int a);
-	Vector& operator-=(int a);
-	Vector& operator*=(int a);
-	Vector& operator/=(int a);
+	//Vector& operator+=(int a);
+	//Vector& operator-=(int a);
+	//Vector& operator*=(int a);
+	//Vector& operator/=(int a);
 
 
 
