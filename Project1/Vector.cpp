@@ -1,12 +1,27 @@
-#include "Vector.h"
+п»ї#include "Vector.h"
 #include<iostream>
+#include <ctime>
 #include<Windows.h>
+#include<initializer_list>
 using namespace std;
 
 Vector::Vector()
 {
 	arr = nullptr;
 	size = 0;
+}
+Vector::Vector(initializer_list<int> a)
+{
+	cout << "Initializer_list constructor" << endl;
+	cout << a.size() << endl;
+	size = a.size();
+	arr = new int[size];
+	for (auto x = a.begin(); x != a.end(); x++)
+	{
+		*arr = *x;
+		arr++;
+	}
+	arr -= size;
 }
 Vector::Vector(int s)
 {
@@ -15,10 +30,10 @@ Vector::Vector(int s)
 }
 Vector::~Vector()
 {
-	//cout << "Destructor\n";
+	cout << "Destructor\n";
 	delete[]arr;
 	size = 0;
-	
+
 }
 Vector::Vector(const Vector& obj)
 {
@@ -31,35 +46,36 @@ Vector::Vector(const Vector& obj)
 	}
 }
 
-int* Vector::GetArr()
+int* Vector::GetArr() const
 {
 	return arr;
 }
-int Vector::GetSize()
+
+int Vector::GetSize() const
 {
 	return size;
 }
 
 void Vector::SetSize(int s)
 {
-    size = s;
+	size = s;
 }
 
 void Vector::SetArr(int* array)
 {
-    delete[] arr;
-    arr = new int[size];
-    for (int i = 0; i < size; i++)
-    {
-        arr[i] = array[i];
-    }
+	delete[] arr;
+	arr = new int[size];
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = array[i];
+	}
 }
 
 void Vector::InputRand()
 {
 	for (int i = 0; i < size; i++)
 	{
-		arr[i] = rand()%41 - 20; // [-20 +20]
+		arr[i] = rand() % 41 - 20; // [-20 +20]
 	}
 }
 void Vector::Print()
@@ -73,17 +89,17 @@ void Vector::Print()
 
 void Vector::PushBack(int a)
 {
-	int* temp = new int[size + 1];  // содаем новый массив (тек размер +1)
+	int* temp = new int[size + 1];  
 
 	for (int i = 0; i < size; i++)
 	{
-		temp[i] = arr[i]; // копируем текущие значения старого массива в новый массив
+		temp[i] = arr[i]; 
 	}
-	temp[size] = a; // инициализация последнего элемента параметром метода
+	temp[size] = a; 
 
-	delete[] arr; // удаление старого массива!
+	delete[] arr; 
 
-	arr = temp; // перенаправляем указатель в объекте на новый дин. массив
+	arr = temp; 
 	size++;
 
 }
@@ -95,7 +111,7 @@ int Vector::PopBack()
 	{
 		temp[i] = arr[i];
 	}
-	int el = arr[size - 1]; // достаем последний элемент старого массива ДО удаления
+	int el = arr[size - 1]; 
 
 	delete[] arr;
 	arr = temp;
@@ -119,7 +135,7 @@ Vector Vector::operator+(int a)
 	Vector rez(size + a);
 	for (int i = 0; i < size; i++)
 	{
-		rez.arr[i] = this->arr[i]; 
+		rez.arr[i] = this->arr[i];
 	}
 
 	for (int i = size; i < rez.size; i++)
@@ -150,10 +166,10 @@ Vector Vector::operator+(Vector b)
 
 
 Vector Vector::operator*(int a) {
-	Vector rez(size); 
+	Vector rez(size);
 	for (int i = 0; i < size; i++)
 	{
-		rez.arr[i] = this->arr[i] * a; 
+		rez.arr[i] = this->arr[i] * a;
 	}
 	return rez;
 }
@@ -169,9 +185,9 @@ Vector& Vector::operator++()
 		temp[i + 1] = arr[i];
 	}
 
-	delete[] arr; 
+	delete[] arr;
 
-	arr = temp; 
+	arr = temp;
 	size++;
 
 	return *this;
@@ -201,13 +217,13 @@ Vector Vector::operator--(int)
 
 Vector& Vector::operator--()
 {
-	if (size == 0) return *this; 
+	if (size == 0) return *this;
 
-	int* temp = new int[size - 1]; 
+	int* temp = new int[size - 1];
 
 	for (int i = 0; i < size - 1; i++)
 	{
-		temp[i] = arr[i + 1]; 
+		temp[i] = arr[i + 1];
 	}
 
 	delete[] arr;
